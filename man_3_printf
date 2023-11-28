@@ -1,0 +1,76 @@
+.TH _printf 24 "November 2023" "Version 1.0" "User Commands"
+
+.SH NAME
+_printf \- Format and print data to standard output
+
+.SH SYNOPSIS
+.B #include <stdio.h>
+.br
+.B #include <stdarg.h>
+.br
+.B #include <stdint.h>
+.br
+.B #include <string.h>
+.br
+.B #include <limits.h>
+.br
+.B #include <unistd.h>
+.br
+.B int _printf(const char *format, ...);
+
+.SH DESCRIPTION
+The \fB_printf\fR function writes the formatted output to standard output. The function allows for the formatting of various data types specified by the format string.
+
+.PP
+The format string may contain characters and format specifiers. Format specifiers begin with a '%' character, followed by a conversion specifier.
+
+.SH OPTIONS
+The following conversion specifiers are supported:
+
+.TP
+\fB%c\fR
+Prints a character.
+
+.TP
+\fB%s\fR
+Prints a string.
+
+.TP
+\fB%\fR
+Prints a '%' character.
+
+.TP
+\fB%d, %i\fR
+Prints an integer.
+
+.SH RETURN VALUE
+The \fB_printf\fR function returns the number of characters printed (excluding the null byte used to end output to strings).
+
+.SH EXAMPLES
+The following example demonstrates the usage of \fB_printf\fR:
+
+.B _printf("Just because it's in print doesn't mean it's the gospel\n");
+
+.SH SEE ALSO
+.BR printf(3)
+
+.SH BUGS
+This implementation of \fB_printf\fR is basic and does not handle all features of the standard printf function.
+
+.SH AUTHOR
+This man page was written by CobraLover.
+
+.SH COPYRIGHT
+This is free and unencumbered software released into the public domain.
+
+.SH NOTES
+This man page is a basic example and may require additional details depending on the complexity of your actual implementation.
+
+.SH VERSION
+Version 1.0 (November 2023)
+
+.SH REPORTING BUGS
+Report any bugs to 6716@holbertonstudents.com.
+
+.SH DISCLAIMER
+This manual page is provided "as is" without any warranty.
