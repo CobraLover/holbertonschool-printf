@@ -28,7 +28,7 @@ int _printf(const char *format, ...)
 			switch (*format)
 			{
 				case 'c':
-					count += putchar(va_arg(args, int));
+					count += _putchar(va_arg(args, int));
 					break;
 				case 'd':
 				case 'i':
@@ -51,17 +51,17 @@ int _printf(const char *format, ...)
 					count += printf_address(va_arg(args, void *));
 					break;
 				case '%':
-					count += putchar('%');
+					count += _putchar('%');
 					break;
 				default:
-					count += putchar('%');
-					count += putchar(*format);
+					count += _putchar('%');
+					count += _putchar(*format);
 					break;
 			}
 		}
 		else
 		{
-			count += putchar(*format);
+			count += _putchar(*format);
 		}
 		format++;
 	}
