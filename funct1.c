@@ -11,8 +11,8 @@
 int print_address(void *ptr)
 {
 	if (ptr == NULL)
-		return _printf("(nil)");
-	return _printf("%p", ptr);
+		return (_printf("(nil)"));
+	return (_printf("%p", ptr));
 }
 
 /************************* PRINT CHARACTER *************************/
@@ -25,7 +25,9 @@ int print_address(void *ptr)
 
 int print_char(va_list args)
 {
-	char c = va_arg(args, int);
+	char c;
+
+	c = va_arg(args, int);
 
 	return (_putchar(c));
 }
@@ -41,7 +43,9 @@ int print_char(va_list args)
 int print_string(va_list args)
 {
 	int length = 0;
-	char *str = va_arg(args, char *);
+	char *str;
+
+	str = va_arg(args, char *);
 
 	if (str == NULL)
 		str = "(null)";
@@ -51,7 +55,7 @@ int print_string(va_list args)
 		_putchar(str[length]);
 		length++;
 	}
-	return length;
+	return (length);
 }
 
 /************************* PRINT PERCENT SIGN *************************/
@@ -66,5 +70,7 @@ int print_percent(va_list args)
 {
 	(void)va_arg(args, int);
 
-	return (_putchar('%'));
+	_putchar('%');
+
+	return (1);
 }
