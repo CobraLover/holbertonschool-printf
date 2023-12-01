@@ -1,44 +1,70 @@
 #include "main.h"
-#include <stdio.h>
-#include <stdarg.h>
-#include <stdint.h>
-#include <string.h>
-#include <limits.h>
-#include <unistd.h>
 
+/************************* PRINT ADDRESS *************************/
 /**
- * printf_unsigned_int - Print an unsigned integer
- * @n: Unsigned integer to print
+ * print_address - Function that print a type address
  *
- * Return: Number of characters printed
- */
+ * @ptr: Pointed to address
+ * Return: a address
+*/
 
-int printf_unsigned_int(unsigned int n)
+int print_address(void *ptr)
 {
-	return (printf("%u", n));
+	if (ptr == NULL)
+		return _printf("(nil)");
+	return _printf("%p", ptr);
 }
 
+/************************* PRINT CHARACTER *************************/
 /**
- * printf_octal - Print an unsigned integer in octal format
- * @n: Unsigned integer to print
+ * print_char - Function that print a type char
  *
- * Return: Number of characters printed
- */
+ * @args: Argument pointed to a character
+ * Return: a integer
+*/
 
-int printf_octal(unsigned int n)
+int print_char(va_list args)
 {
-	return (printf("%o", n));
+	char c = va_arg(args, int);
+
+	return (_putchar(c));
 }
 
+/************************* PRINT A STRING *************************/
 /**
- * printf_hex - Print an unsigned integer in hexadecimal format
- * @n: Unsigned integer to print
- * @uppercase: Whether to use uppercase letters in hexadecimal (X)
+ * print_string - Print a string
  *
- * Return: Number of characters printed
- */
+ * @args: Argument pointed to a type string
+ * Return: The lenght of a string
+*/
 
-int printf_hex(unsigned int n, int uppercase)
+int print_string(va_list args)
 {
-	return (printf(uppercase ? "%X" : "%x", n));
+	int length = 0;
+	char *str = va_arg(args, char *);
+
+	if (str == NULL)
+		str = "(null)";
+
+	while (str[length] != '\0')
+	{
+		_putchar(str[length]);
+		length++;
+	}
+	return length;
+}
+
+/************************* PRINT PERCENT SIGN *************************/
+/**
+ * print_percent - Print a percent sign
+ *
+ * @args: Argument of the lists
+ * Return: Always 1 (the lenght of a percent sign)
+*/
+
+int print_percent(va_list args)
+{
+	(void)va_arg(args, int);
+
+	return (_putchar('%'));
 }
