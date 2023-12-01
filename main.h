@@ -1,21 +1,38 @@
 #ifndef MAIN_H
 #define MAIN_H
-
 #include <stdio.h>
 #include <stdarg.h>
-#include <stdint.h>
+#include <stdlib.h>
 #include <string.h>
 #include <limits.h>
 #include <unistd.h>
 
+/**
+ * struct fmt_t - Struct op
+ *
+ * @fmt: The format specifier
+ * @fct: The function associated.
+ */
+
+typedef struct fmt_t
+{
+	const char *fmt;
+	int (*fct)(va_list);
+} fmt_t;
+
 int _putchar(char c);
 int _printf(const char *format, ...);
 
-int printf_integer(int n);
-int printf_address(void *p);
-int printf_string(char *s);
-int printf_unsigned_int(unsigned int n);
-int printf_octal(unsigned int n);
-int printf_hex(unsigned int n, int uppercase);
+/****************** FUNCTIONS ******************/
+
+/* Funtions to print chars and strings */
+int print_address(void *ptr);
+int print_char(va_list args);
+int print_string(va_list args);
+int print_percent(va_list args);
+
+/* Functions to print numbers */
+int print_integer(va_list args);
+int print_unsigned_int(unsigned int num);
 
 #endif /* MAIN_H */
