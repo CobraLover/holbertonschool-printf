@@ -2,13 +2,13 @@
 
 /************************* PRINT ADDRESS *************************/
 /**
- * print_address - Function that print a type address
+ * _printf_address - Function that print a type address
  *
  * @ptr: Pointed to address
  * Return: a address
 */
 
-int print_address(void *ptr)
+int _printf_address(void *ptr)
 {
 	if (ptr == NULL)
 		return (_printf("(nil)"));
@@ -17,13 +17,13 @@ int print_address(void *ptr)
 
 /************************* PRINT CHARACTER *************************/
 /**
- * print_char - Function that print a type char
+ * _printf_char - Function that print a type char
  *
  * @args: Argument pointed to a character
  * Return: a integer
 */
 
-int print_char(va_list args)
+int _printf_char(va_list args)
 {
 	char c;
 
@@ -34,15 +34,15 @@ int print_char(va_list args)
 
 /************************* PRINT A STRING *************************/
 /**
- * print_string - Print a string
+ * _printf_string - Print a string
  *
  * @args: Argument pointed to a type string
  * Return: The lenght of a string
 */
 
-int print_string(va_list args)
+int _printf_string(va_list args)
 {
-	int length = 0;
+	int count = 0;
 	char *str;
 
 	str = va_arg(args, char *);
@@ -50,23 +50,23 @@ int print_string(va_list args)
 	if (str == NULL)
 		str = "(null)";
 
-	while (str[length] != '\0')
+	while (*str)
 	{
-		_putchar(str[length]);
-		length++;
+		count += _putchar(*str);
+		str++;
 	}
-	return (length);
+	return (count);
 }
 
 /************************* PRINT PERCENT SIGN *************************/
 /**
- * print_percent - Print a percent sign
+ * _printf_percent - Print a percent sign
  *
  * @args: Argument of the lists
  * Return: Always 1 (the lenght of a percent sign)
 */
 
-int print_percent(va_list args)
+int _printf_percent(va_list args)
 {
 	(void)va_arg(args, int);
 
