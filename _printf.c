@@ -1,70 +1,51 @@
 #include "main.h"
-#include <stdio.h>
-#include <stdarg.h>
-#include <stdint.h>
-#include <string.h>
-#include <limits.h>
-#include <unistd.h>
 
 /**
- * _printf - Custom printf function
- * @format: Format string
+ * _printf - Function that print all types
  *
- * Return: Number of characters printed (excluding null byte)
+ * @format: Arguments of list types passed to the function
+ * Return: The number of characters printed
  */
 
 int _printf(const char *format, ...)
 {
+	int length = 0, fnd_format = 0, fmt_index = 0, index_fmt = 0;
 	va_list args;
-	int count = 0;
+
+	fmt_t fmt[] = {
+	{"c", print_char}, {"d", print_integer}, {"i", print_integer},
+	{"s", print_string}, {"%", print_percent},
+	{NULL, NULL}
+	};
 
 	va_start(args, format);
 
-	while (*format)
+	for (index_fmt = 0; format != NULL && format[index_fmt] != '\0'; index_fmt++)
 	{
-		if (*format == '%' && *(format + 1))
+		if (format[index_fmt] == '%')
 		{
-			format++;
-			switch (*format)
+			fmt_index = 0, fnd_format = 0;
+			for (; fmt[fmt_index].fmt != NULL; fmt_index++)
 			{
-				case 'c':
-					count += _putchar(va_arg(args, int));
+				if (format[index_fmt + 1] == *(fmt[fmt_index].fmt))
+				{
+					length += fmt[fmt_index].fct(args);
+					fnd_format = 1;
 					break;
-				case 'd':
-				case 'i':
-					count += printf_integer(va_arg(args, int));
-					break;
-				case 'u':
-					count += printf_unsigned_int(va_arg(args, unsigned int));
-					break;
-				case 'o':
-					count += printf_octal(va_arg(args, unsigned int));
-					break;
-				case 'x':
-				case 'X':
-					count += printf_hex(va_arg(args, unsigned int), (*format == 'X'));
-					break;
-				case 's':
-					count += printf_string(va_arg(args, char *));
-					break;
-				case 'p':
-					count += printf_address(va_arg(args, void *));
-					break;
-				case '%':
-					count += _putchar('%');
-					break;
-				default:
-					count += _putchar('%');
-					count += _putchar(*format);
-					break;
+				}
 			}
+			if (!fnd_format)
+			{
+				length += _putchar('%');
+				length += _putchar(format[index_fmt + 1]);
+			}
+			index_fmt++;
 		}
 		else
 		{
-			count += _putchar(*format);
+			length += _putchar(format[index_fmt]);
 		}
-		format++;
 	}
 	va_end(args);
-	return (count);
+	return (length);
 }
