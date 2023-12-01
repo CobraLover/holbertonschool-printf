@@ -17,36 +17,28 @@ int print_integer(va_list args)
 	if (num < 0)
 	{
 		_putchar('-');
-		return (print_unsigned_int((unsigned int)(-num)));
+		return (print_unsigned_int(-num) + 1);
 	}
-	return (print_unsigned_int((unsigned int)num));
+	return (print_unsigned_int(num));
 }
 
 /************************* PRINT UNSIGNED NUMBER *************************/
 /**
  * print_unsigned_int - Print a unsigned integer
  *
- * @args: Argument to print a unsigned integer
+ * @num: Argument to print a unsigned integer
  * Return: The length of the integer printed
 */
 
 int print_unsigned_int(unsigned int num)
 {
-	int i, length = 0;
-	char buffer[20]; /* Assuming a maximum of 20 digits for an unsigned int */
+	int length = 0;
 
 	if (num == 0)
-	return (_putchar('0'));
+		return (_putchar('0'));
 
-	while (num > 0)
-	{
-		buffer[length++] = (num % 10) + '0';
-		num /= 10;
-	}
-	/* Print the digits in reverse order */
-	for (i = length - 1; i >= 0; i--)
-	{
-		_putchar(buffer[i]);
-	}
-	return (length);
+	if ((num / 10) != 0)
+		length += print_unsigned_int(num / 10);
+
+	return (length + _putchar('0' + (num % 10)));
 }
