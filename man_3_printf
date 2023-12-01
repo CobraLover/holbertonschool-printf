@@ -8,12 +8,6 @@ _printf \- Format and print data to standard output
 .br
 .B #include <stdarg.h>
 .br
-.B #include <stdint.h>
-.br
-.B #include <string.h>
-.br
-.B #include <limits.h>
-.br
 .B #include <unistd.h>
 .br
 .B int _printf(const char *format, ...);
