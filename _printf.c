@@ -1,51 +1,25 @@
 #include "main.h"
+#include <stdio.h>
+#include <stdarg.h>
+#include <unistd.h>
+
+/* Struct definition and specifier functions (as before) */
 
 /**
- * _printf - Function that print all types
+ * _printf - Custom printf function
+ * @format: Format string
  *
- * @format: Arguments of list types passed to the function
- * Return: The number of characters printed
+ * Return: Number of characters printed (excluding null byte)
  */
 
 int _printf(const char *format, ...)
 {
-	int length = 0, fnd_format = 0, fmt_index = 0, index_fmt = 0;
+	int count = 0;
 	va_list args;
 
-	fmt_t fmt[] = {
-	{"c", print_char}, {"d", print_integer}, {"i", print_integer},
-	{"s", print_string}, {"%", print_percent},
-	{NULL, NULL}
-	};
-
 	va_start(args, format);
+	count = handle_format_string(format, args);
 
-	for (index_fmt = 0; format != NULL && format[index_fmt] != '\0'; index_fmt++)
-	{
-		if (format[index_fmt] == '%')
-		{
-			fmt_index = 0, fnd_format = 0;
-			for (; fmt[fmt_index].fmt != NULL; fmt_index++)
-			{
-				if (format[index_fmt + 1] == *(fmt[fmt_index].fmt))
-				{
-					length += fmt[fmt_index].fct(args);
-					fnd_format = 1;
-					break;
-				}
-			}
-			if (!fnd_format)
-			{
-				length += _putchar('%');
-				length += _putchar(format[index_fmt + 1]);
-			}
-			index_fmt++;
-		}
-		else
-		{
-			length += _putchar(format[index_fmt]);
-		}
-	}
 	va_end(args);
-	return (length);
+	return (count);
 }
