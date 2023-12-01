@@ -1,45 +1,52 @@
 #include "main.h"
-#include <stdio.h>
-#include <stdarg.h>
-#include <stdint.h>
-#include <string.h>
-#include <limits.h>
-#include <unistd.h>
 
+/************************* PRINT INTEGER *************************/
 /**
- * printf_integer - Print an integer
- * @n: Integer to print
+ * print_integer - Function that prints a integer
  *
- * Return: Number of characters printed
- */
+ * @args: Argument pointed to an integer
+ * Return: The lenght of the integer printed
+*/
 
-int printf_integer(int n)
+int print_integer(va_list args)
 {
-	return (printf("%d", n));
+	int num;
+
+	num = va_arg(args, int);
+
+	if (num < 0)
+	{
+		_putchar('-');
+		return (print_unsigned_int((unsigned int)(-num)));
+	}
+	return (print_unsigned_int((unsigned int)num));
 }
 
+/************************* PRINT UNSIGNED NUMBER *************************/
 /**
- * printf_address - Print a memory address
- * @p: Pointer to print
+ * print_unsigned_int - Print a unsigned integer
  *
- * Return: Number of characters printed
- */
+ * @args: Argument to print a unsigned integer
+ * Return: The length of the integer printed
+*/
 
-int printf_address(void *p)
+int print_unsigned_int(unsigned int num)
 {
-	return (printf("%p", p));
-}
+	int i, length = 0;
+	char buffer[20]; /* Assuming a maximum of 20 digits for an unsigned int */
 
-/**
- * printf_string - Print a string
- * @s: String to print
- *
- * Return: Number of characters printed
- */
+	if (num == 0)
+	return (_putchar('0'));
 
-int printf_string(char *s)
-{
-	if (s == NULL)
-		return (printf("(null)"));
-	return (printf("%s", s));
+	while (num > 0)
+	{
+		buffer[length++] = (num % 10) + '0';
+		num /= 10;
+	}
+	/* Print the digits in reverse order */
+	for (i = length - 1; i >= 0; i--)
+	{
+		_putchar(buffer[i]);
+	}
+	return (length);
 }
